@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import PageTitle from "../../components/layout/PageTitle";
+import SectionTitle from "../../components/layout/SectionTitle";
+
 
 function calcFatorial(num) {
     const n = parseInt(num);
@@ -8,12 +10,23 @@ function calcFatorial(num) {
     return calcFatorial(n - 1) * n;
 }
 
+function parOuImpar(num) {
+    const n = parseInt(num);
+    return (n % 2 === 0 ? true : false);
+}
+
 const UseEffect = (props) => {
 	const [number, setNumber] = useState(1);
     const [fatorial, setFatorial] = useState(1);
 
+    const [status, setStatus] = useState(false);
+
     useEffect(() => {
         setFatorial(calcFatorial(number))
+    }, [number])
+
+    useEffect(() => {
+        setStatus(parOuImpar(number))
     }, [number])
 
 	return (
@@ -22,6 +35,7 @@ const UseEffect = (props) => {
 				title="Hook UseEffect"
 				subtitle="Permite executar efeitos colaterais em componentes funcionais!" />
 
+            <SectionTitle title="Exercício #01" />
 			<div className="center">
 				<div>
 					<span className="text">Fatorial: </span>
@@ -34,6 +48,12 @@ const UseEffect = (props) => {
 					onChange={(e) => setNumber(e.target.value)}
 				/>
 			</div>
+
+            <SectionTitle title="Exercício #02" />
+            <div className="center">
+                <span className="text">Status: </span>
+				<span className="text red">{status === true ? 'Par' : 'Impar'}</span>
+            </div>
 		</div>
 	);
 };
